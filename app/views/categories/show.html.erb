@@ -1,0 +1,48 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @category.name %>
+
+  <hr>
+   
+  <%= form_with(model: [ @category, @product ]) do |form| %>
+    <div class="form-group">
+      <%= form.label :name %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :price %>
+      <%= form.text_field :price, class: "form-control" %>
+    </div>
+
+    <%= form.submit 'Guardar', class: "btn btn-primary" %>
+
+  <% end %>
+
+</p>
+
+<hr>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Options</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @category.products.each do |p| %>
+    <tr>
+      <td><%= p.name %></td>
+      <td><%= p.price %></td>
+      <td><%= link_to 'Eliminar', category_product_path(@category, p), method: :delete, data: { confirm: 'Are you sure?' }, class: "badge badge-danger" %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_category_path(@category) %> |
+<%= link_to 'Back', categories_path %>
